@@ -4,12 +4,15 @@ from types import MethodType
 
 from django.db.models.fields import FieldDoesNotExist
 from django.utils.text import capfirst
-from django.db.models.options import get_verbose_name
+# from django.db.models.options import get_verbose_name
 from django.utils.functional import LazyObject
 from django.conf import settings
 
 from mongoengine.fields import ReferenceField, ListField
 
+# TODO: validate it. This is added instead of django get_verbose_name
+import re
+get_verbose_name = lambda class_name: re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', ' \\1', class_name).lower().strip()
 
 def patch_document(function, instance, bound=True):
     if bound:
@@ -314,9 +317,12 @@ class DocumentMetaWrapper(MutableMapping):
             return getattr(self, self._deprecated_attrs.get(name))
             
         try:
+            # TODO: check it. It seems that is needed return empty string instead of an error.
+            # print "####### REAL META"
+            # print self._meta
             return self._meta[name]
         except KeyError:
-            raise AttributeError
+            return ''
                     
     def __setattr__(self, name, value):
         if not hasattr(self, name):

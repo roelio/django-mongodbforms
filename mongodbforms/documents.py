@@ -267,7 +267,6 @@ class ModelFormOptions(object):
         self.document = getattr(options, 'document', None)
         if self.document is None:
             self.document = getattr(options, 'model', None)
-            
         self.model = self.document
         meta = getattr(self.document, '_meta', {})
         # set up the document meta wrapper if document meta is a dict
@@ -282,6 +281,10 @@ class ModelFormOptions(object):
                                            _fieldgenerator)
         
         self._dont_save = []
+
+        # TODO: Test. Added due compatible reasons with django 1.7
+        self.labels = False
+        self.help_texts = False
         
         
 class DocumentFormMetaclass(type):
