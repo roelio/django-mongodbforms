@@ -3,7 +3,8 @@ import itertools
 from collections import Callable, OrderedDict
 from functools import reduce
 
-from django.forms.forms import (BaseForm, get_declared_fields,
+from django.forms import BaseModelForm
+from django.forms.forms import (get_declared_fields,
                                 NON_FIELD_ERRORS, pretty_name)
 from django.forms.widgets import media_property
 from django.core.exceptions import FieldError
@@ -341,7 +342,7 @@ class DocumentFormMetaclass(type):
         return new_class
     
     
-class BaseDocumentForm(BaseForm):
+class BaseDocumentForm(BaseModelForm):
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
                  initial=None, error_class=ErrorList, label_suffix=':',
                  empty_permitted=False, instance=None):
