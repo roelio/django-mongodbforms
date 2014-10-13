@@ -50,9 +50,25 @@ class Relation(object):
 class PkWrapper(object):
     editable = False
     fake = False
-    
+    # TODO: check it. Probably will be used to accomplished django 1.7
+    # rel = None
+    # blank = True
+    # null = True
+    # verbose_name = None
+    # help_text = None
+    # flatchoices = False
+
     def __init__(self, wrapped):
         self.obj = wrapped
+
+    # def has_default(self):
+    #     return False
+    #
+    # def _get_val_from_obj(self, obj):
+    #     return obj
+    #
+    # def value_to_string(self, obj):
+    #    return str(obj)
 
     def __getattr__(self, attr):
         if attr in dir(self.obj):
@@ -202,7 +218,7 @@ class DocumentMetaWrapper(MutableMapping):
 
         def _get_pk_val(self):
             return self._pk_val
-        
+
         if pk_field is not None:
             self.pk.name = self.pk_name
             self.pk.attname = self.pk_name
