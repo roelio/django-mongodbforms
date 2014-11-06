@@ -921,7 +921,7 @@ def _get_embedded_field(parent_doc, document, emb_name=None, can_fail=False):
                 raise Exception("%s has no field named '%s'" % (parent_doc, emb_name))
     else:
         emb_fields = [
-            f for f in parent_doc._fields.values()
+            field for field in parent_doc._fields.values()
             if (isinstance(field, EmbeddedDocumentField) and field.document_type == document) or \
             (isinstance(field, ListField) and
              isinstance(field.field, EmbeddedDocumentField) and 
