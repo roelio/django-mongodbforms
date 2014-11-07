@@ -847,9 +847,11 @@ class EmbeddedDocumentFormSet(BaseDocumentFormSet):
             if parent_document is None:
                 self.parent_document = instance
         
-        queryset = getattr(self.parent_document,
+            queryset = getattr(self.parent_document,
                            self.form._meta.embedded_field)
-        
+        else:
+            queryset = kwargs.pop('queryset', None)
+
         super(EmbeddedDocumentFormSet, self).__init__(data, files, save_as_new,
                                                       prefix, queryset,
                                                       **kwargs)
